@@ -1,0 +1,49 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # `npm install`, not `npm ci`, and deliberately so.
+        #
+        # npm ci refuses to run when package.json and the lockfile disagree,
+        # which is normally what you want in CI. It is unusable here because of
+        # an upstream packaging fault: @unrs/resolver-binding-wasm32-wasi (pulled
+        # in transitively by ESLint) pins an exact @emnapi/core version, but it is
+        # a wasm32-wasi optional package, so npm filters it out on Windows and
+        # never writes its dependencies into the lockfile. The lockfile is
+        # therefore incomplete for Linux no matter how often it is regenerated on
+        # a developer machine, and npm ci aborts on Amplify.
+        #
+        # npm install still honours the lockfile for everything it can resolve;
+        # it just fills that gap instead of failing.
+        #
+        # Do not switch this to --omit=dev: typescript, tailwindcss and the
+        # Tailwind PostCSS plugin are all devDependencies that the build needs.
+        - npm install --no-audit --no-fund
+    build:
+      commands:
+        # Amplify exposes environment variables to the BUILD, but does not inject
+        # them into the Next.js SSR runtime. Without this step every server-side
+        # read of process.env.SUBMISSIONS_TABLE is undefined at request time,
+        # the store throws, and the form returns 502. Redeploying does not help:
+        # the variables are simply not in the compute environment.
+        #
+        # So write them into .env.production, which Next.js loads on the server.
+        #
+        # `env | grep` rather than a loop echoing "$var=${!var}" on purpose: the
+        # values never appear in a command line, so nothing can leak into the
+        # build log.
+        #
+        # Adding a new server-side variable means adding it here too. It is not
+        # enough to set it in the Amplify console.
+        - env | grep -E '^(SUBMISSIONS_TABLE|RATELIMIT_TABLE|APP_AWS_REGION|SES_CONFIGURATION_SET|SES_FROM_ADDRESS|SES_REPLY_TO|SITE_URL|INQUIRY_NOTIFY_ADDRESS)=' >> .env.production || true
+        - npm run build
+  artifacts:
+    # Amplify detects the Next.js SSR (WEB_COMPUTE) output from .next
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

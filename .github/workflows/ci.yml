@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Lets you re-run checks by hand from the Actions tab.
+  workflow_dispatch:
+
+concurrency:
+  # A new push to the same branch cancels the previous run.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck · Lint · Test · Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        # Same reasoning as amplify.yml: the lockfile cannot be complete for
+        # Linux when it is generated on Windows, so npm ci would refuse it.
+        run: npm install --no-audit --no-fund
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Unit tests
+        run: npm run test
+
+      # Builds with no AWS variables on purpose: the site must render with no
+      # store configured, and the form must fail clearly rather than crash.
+      - name: Build
+        run: npm run build
+
+  infrastructure:
+    name: Validate CloudFormation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Lint the template
+        # cfn-lint catches bad resource properties and intrinsics that a plain
+        # YAML parse would happily accept.
+        run: |
+          python -m pip install --quiet cfn-lint
+          cfn-lint infra/azss-infra.yaml

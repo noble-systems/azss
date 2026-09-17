@@ -1,0 +1,6 @@
+# Keep LF in the repo and in checkouts, so Prettier agrees on every machine.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+*.webp binary

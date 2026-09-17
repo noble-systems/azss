@@ -1,0 +1,215 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  Arizona Sound System. Data and email for the marketing site: one DynamoDB
+  table for quote requests, one for rate-limit counters, an SES identity for
+  the sending domain, and an IAM policy to attach to the Amplify Hosting
+  compute role.
+
+  Deploy with:
+    aws cloudformation deploy \
+      --template-file infra/azss-infra.yaml \
+      --stack-name azsoundsystem \
+      --capabilities CAPABILITY_NAMED_IAM \
+      --region us-west-1
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: azsoundsystem
+    Description: Prefix for all resource names.
+
+  SendingDomain:
+    Type: String
+    Default: ""
+    Description: >
+      Optional. Domain SES will send email from, e.g. azsoundsystem.com.
+      Creates a verified identity with DKIM; you then add the three CNAME
+      records from the stack outputs to DNS. Leave blank to skip email setup.
+
+Conditions:
+  CreateEmailIdentity: !Not [!Equals [!Ref SendingDomain, ""]]
+
+Resources:
+  # ---------------------------------------------------------------------------
+  # Data
+  # ---------------------------------------------------------------------------
+
+  SubmissionsTable:
+    Type: AWS::DynamoDB::Table
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Properties:
+      TableName: !Sub "${ProjectName}-submissions"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: type
+          AttributeType: S
+        - AttributeName: createdAt
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        # Lets the app read inquiries newest-first without scanning the table.
+        - IndexName: byType
+          KeySchema:
+            - AttributeName: type
+              KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      Tags:
+        - Key: Project
+          Value: !Ref ProjectName
+
+  # ---------------------------------------------------------------------------
+  # Rate limiting
+  # ---------------------------------------------------------------------------
+
+  RateLimitTable:
+    Type: AWS::DynamoDB::Table
+    # Deliberately NOT Retain. This table holds only short-lived counters, and a
+    # stale one left behind after a stack delete would be worse than useless.
+    DeletionPolicy: Delete
+    Properties:
+      TableName: !Sub "${ProjectName}-ratelimit"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+      # DynamoDB deletes expired rows for us, so old windows cost nothing and
+      # need no sweeper.
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+      Tags:
+        - Key: Project
+          Value: !Ref ProjectName
+
+  # ---------------------------------------------------------------------------
+  # Email. Acknowledgements and the inquiry notification
+  # ---------------------------------------------------------------------------
+
+  EmailIdentity:
+    Type: AWS::SES::EmailIdentity
+    Condition: CreateEmailIdentity
+    Properties:
+      EmailIdentity: !Ref SendingDomain
+      DkimAttributes:
+        SigningEnabled: true
+      MailFromAttributes:
+        # A custom MAIL FROM domain aligns SPF with the From: address, which
+        # materially improves inbox placement.
+        MailFromDomain: !Sub "mail.${SendingDomain}"
+        BehaviorOnMxFailure: USE_DEFAULT_VALUE
+
+  EmailConfigurationSet:
+    Type: AWS::SES::ConfigurationSet
+    Properties:
+      Name: !Sub "${ProjectName}-email"
+      ReputationOptions:
+        ReputationMetricsEnabled: true
+      SendingOptions:
+        SendingEnabled: true
+      SuppressionOptions:
+        # Stop sending to addresses that hard-bounce or report spam.
+        SuppressedReasons:
+          - BOUNCE
+          - COMPLAINT
+
+  # ---------------------------------------------------------------------------
+  # Permissions for the Amplify Hosting compute role
+  # ---------------------------------------------------------------------------
+
+  AppDataPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      # IAM is a GLOBAL namespace, so the region belongs in the name. Without it,
+      # deploying this stack to a second region collides with the policy the
+      # first region already created.
+      ManagedPolicyName: !Sub "${ProjectName}-app-data-${AWS::Region}"
+      Description: Read/write access to the Arizona Sound System tables, plus SES send.
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: Submissions
+            Effect: Allow
+            Action:
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:Query
+              - dynamodb:Scan
+            Resource:
+              - !GetAtt SubmissionsTable.Arn
+              - !Sub "${SubmissionsTable.Arn}/index/*"
+              - !GetAtt RateLimitTable.Arn
+
+          # Only added when a sending domain was supplied, and scoped to that
+          # identity so this role can't send as anything else.
+          - !If
+            - CreateEmailIdentity
+            - Sid: SendEmail
+              Effect: Allow
+              Action:
+                - ses:SendEmail
+              Resource:
+                - !Sub "arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/${SendingDomain}"
+                - !Sub "arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:configuration-set/${ProjectName}-email"
+            - !Ref AWS::NoValue
+
+Outputs:
+  SubmissionsTableName:
+    Description: Set as SUBMISSIONS_TABLE in Amplify.
+    Value: !Ref SubmissionsTable
+
+  RateLimitTableName:
+    Description: Set as RATELIMIT_TABLE in Amplify.
+    Value: !Ref RateLimitTable
+
+  AppDataPolicyArn:
+    Description: Attach this policy to the Amplify app's compute (SSR) IAM role.
+    Value: !Ref AppDataPolicy
+
+  Region:
+    Description: Set as APP_AWS_REGION in Amplify.
+    Value: !Ref AWS::Region
+
+  EmailConfigurationSetName:
+    Description: Set as SES_CONFIGURATION_SET in Amplify.
+    Value: !Ref EmailConfigurationSet
+
+  DkimRecord1:
+    Condition: CreateEmailIdentity
+    Description: Add as a CNAME record in DNS (name -> value).
+    Value: !Sub "${EmailIdentity.DkimDNSTokenName1} -> ${EmailIdentity.DkimDNSTokenValue1}"
+
+  DkimRecord2:
+    Condition: CreateEmailIdentity
+    Description: Add as a CNAME record in DNS (name -> value).
+    Value: !Sub "${EmailIdentity.DkimDNSTokenName2} -> ${EmailIdentity.DkimDNSTokenValue2}"
+
+  DkimRecord3:
+    Condition: CreateEmailIdentity
+    Description: Add as a CNAME record in DNS (name -> value).
+    Value: !Sub "${EmailIdentity.DkimDNSTokenName3} -> ${EmailIdentity.DkimDNSTokenValue3}"
+
+  MailFromMxRecord:
+    Condition: CreateEmailIdentity
+    Description: >
+      Add as an MX record on the MAIL FROM subdomain, priority 10.
+    Value: !Sub "mail.${SendingDomain} -> feedback-smtp.${AWS::Region}.amazonses.com"
+
+  MailFromTxtRecord:
+    Condition: CreateEmailIdentity
+    Description: Add as a TXT record on the MAIL FROM subdomain.
+    Value: !Sub 'mail.${SendingDomain} -> "v=spf1 include:amazonses.com ~all"'
