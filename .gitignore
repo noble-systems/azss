@@ -16,5 +16,7 @@ next-env.d.ts
 # Local data store (development only)
 .data
 
-# Camera originals. The web-sized copies live in public/media.
-media
+# Camera originals at the repo root only. public/media must ship, so this is
+# anchored with a leading slash; a bare "media" ignored that folder too and
+# every image 404ed on the first deploy.
+/media
