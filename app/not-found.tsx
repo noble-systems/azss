@@ -10,11 +10,10 @@ export default function NotFound() {
         <div className="shell flex min-h-[60svh] flex-col justify-center py-16">
           <p className="label-sm text-sun-soft">404</p>
           <h1 className="mt-5 text-[2.4rem] leading-[1.05] sm:text-5xl">
-            Nothing on this channel.
+            Nothing here.
           </h1>
           <p className="text-bone/65 mt-5 max-w-md text-[1.0625rem] leading-relaxed">
-            The page you asked for does not exist. The system, the power and the
-            quote form are all on the front page.
+            That page doesn't exist. Everything is on the front page.
           </p>
           <div className="mt-8">
             <ButtonLink href="/" variant="sun" size="lg">

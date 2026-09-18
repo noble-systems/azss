@@ -82,7 +82,7 @@ function StructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Turn-key sound system rental",
-            description: `Line array tops, subwoofers, booth monitors, cabling and an engineer, delivered, set up, run and struck, for crowds up to ${crowd.max}.`,
+            description: `Line array tops, subs, booth monitors, cables and an engineer who sets it up and runs it, for about ${crowd.max} people.`,
             areaServed: { "@type": "State", name: "Arizona" },
           },
         },
@@ -92,7 +92,7 @@ function StructuredData() {
             "@type": "Service",
             name: "Silent battery power for events",
             description:
-              "Battery power for the whole show where there is no outlet and a generator cannot go.",
+              "Battery power that runs the whole show where there is no outlet.",
             areaServed: { "@type": "State", name: "Arizona" },
           },
         },
@@ -102,7 +102,7 @@ function StructuredData() {
             "@type": "Service",
             name: "Audio engineer on site",
             description:
-              "System setup, tuning to the room, sound check and live support for the whole event.",
+              "Setup, tuning, sound check and someone on the system for the whole event.",
             areaServed: { "@type": "State", name: "Arizona" },
           },
         },

@@ -34,9 +34,9 @@ export const brand = {
   region: "Arizona",
   domain: "https://azsoundsystem.com",
   description:
-    "Arizona Sound System is a turn-key sound rental for events across Arizona. One crew brings the rig, the booth, the power and the engineer, sets it up, runs the show and takes it down.",
+    "Arizona Sound System rents out a full sound system for events across Arizona and sends an engineer to set it up and run it.",
   shortDescription:
-    "Turn-key sound for events across Arizona. Rig, booth, power and engineer, delivered and run.",
+    "Sound system rental for events across Arizona, delivered and run by us.",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -122,8 +122,8 @@ export const crowd = {
 export const hero = {
   eyebrow: "Sound system rental, Phoenix and all of Arizona",
   title: "Big sound. Anywhere in Arizona.",
-  tagline: "One call. One crew. The whole system, set up and run for you.",
-  body: `High-end line array tops, festival-grade subs, booth monitors and silent battery power, sized for crowds up to ${crowd.max} and delivered with an engineer who dials it in for the room and stays for the show. Built for EDM. Ready for pool decks, warehouses, rooftops and the middle of the desert.`,
+  tagline: "We bring the whole system and run it. You run the party.",
+  body: `Line array tops, big subs, booth monitors and our own battery power, enough for about ${crowd.max} people. An engineer comes with it, sets it up and stays on it until the last track. We mostly do electronic music. Pool decks, warehouses, rooftops. The desert is fine too.`,
   primaryCta: { label: "Get a quote", href: "#contact" },
   secondaryCta: { label: "See the system", href: "#system" },
   image: "/media/hero.jpg" as string | null,
@@ -151,7 +151,7 @@ export type GearItem = {
 export const system = {
   eyebrow: "The system",
   title: "What shows up.",
-  intro: `The same rig every time, owned and maintained by us. High-end touring gear sized for crowds up to ${crowd.max}, and it comes as one package: tops, subs, booth, cabling, power and the person who runs it.`,
+  intro: `It's our own rig and it's the same one every time. Good for about ${crowd.max} people. You get the tops, the subs, the booth, the cables, the power and a person to run it.`,
 } as const;
 
 export const gear: readonly GearItem[] = [
@@ -160,11 +160,11 @@ export const gear: readonly GearItem[] = [
     index: "01",
     title: "The subs",
     lead: "The low end is the whole point.",
-    body: "Festival-grade subwoofers, the kind touring rigs and club installs run, and enough of them to move a full dance floor. Stacked under the tops or split across the room, and tuned to the space on the night.",
+    body: "Big touring subs, and enough of them. We stack them under the tops or split them across the floor depending on the room, then tune them on the night.",
     points: [
-      "High-end subs built for bass music",
-      `Enough of them for crowds up to ${crowd.max}`,
-      "Stacked, split or steered to keep the bass off the neighbours",
+      "Built for bass music",
+      `Enough for about ${crowd.max} people`,
+      "We can aim them so the bass stays off the neighbours",
     ],
     tone: "ember",
     image: "/media/sub.png",
@@ -174,12 +174,12 @@ export const gear: readonly GearItem[] = [
     id: "tops",
     index: "02",
     title: "The tops",
-    lead: "Even coverage from the front row to the back wall.",
-    body: "A professional line array, flown from truss, stacked over the subs or up on poles, whichever the site calls for. Line arrays throw further and more evenly, so the people at the back hear the same mix as the people at the rail without the front row getting flattened.",
+    lead: "Everyone hears the same mix.",
+    body: "A proper line array. We fly it off truss, stack it on the subs or put it on poles, depending on the venue. Line arrays throw far and even, so the back of the room hears what the front does and the front row doesn't get blasted.",
     points: [
-      "High-end line array, flown, stacked over the subs, or on poles",
-      "Aimed and time-aligned on site",
-      "Clean at full volume, all night",
+      "Flown, stacked or on poles",
+      "Aimed and time-aligned on the day",
+      "Stays clean at full volume",
     ],
     tone: "night",
     image: "/media/top.png",
@@ -189,12 +189,11 @@ export const gear: readonly GearItem[] = [
     id: "booth",
     index: "03",
     title: "The booth",
-    lead: "The DJ hears the room, not a guess at it.",
-    body: "Proper booth monitors so the artist can mix with confidence. Nothing kills a set faster than a booth that sounds nothing like the floor.",
+    lead: "The DJ hears the room.",
+    body: "Real booth monitors on their own level. If the booth sounds nothing like the floor, the set suffers, so we don't let that happen.",
     points: [
-      "Dedicated booth monitoring",
-      "Separate level from the main system",
-      "Room for your own decks and mixer, or ask about ours",
+      "Own level, separate from the main system",
+      "Bring your decks and mixer, or ask about ours",
     ],
     tone: "sand",
     image: "/media/booth.png",
@@ -208,25 +207,25 @@ export const gear: readonly GearItem[] = [
 
 export const power = {
   eyebrow: "Power anywhere",
-  title: "No outlet, no generator, no problem.",
+  title: "We bring our own power.",
   intro:
-    "A battery power station big enough to run the whole show travels with the rig, with more packs for the nights that run long. It is silent, there are no fumes and no cable run back to a wall, which opens up the places a generator can't go or isn't allowed.",
+    "A battery power station that runs the whole show comes with the rig. Extra packs for long nights. It's silent and there's no exhaust, so it can go on a rooftop, out in the desert, or inside an old building with bad wiring. If the venue has decent power, we'll use that.",
   points: [
     {
-      title: "Where generators can't reach",
-      body: "Desert sites, rooftops, courtyards, anywhere a generator can't be placed or can't be heard over.",
+      title: "Where a generator can't go",
+      body: "Rooftops, courtyards, desert sites.",
     },
     {
       title: "Silent",
-      body: "Battery power makes no noise, so it can sit next to the stage instead of a hundred feet away on a cable.",
+      body: "It makes no noise, so it sits right next to the stage.",
     },
     {
       title: "Clean",
-      body: "No fuel on site, no exhaust, and steady power for the amplifiers all night.",
+      body: "No fuel, no exhaust.",
     },
     {
       title: "Indoors too",
-      body: "Older buildings and warehouses often can't feed a full rig from the wall. The battery covers the gap.",
+      body: "Old buildings and warehouses often can't run a full rig off the wall. The battery does.",
     },
   ],
   image: "/media/power.png" as string | null,
@@ -239,9 +238,9 @@ export const power = {
 
 export const audience = {
   eyebrow: "Built for EDM",
-  title: "Made for the music that needs it.",
+  title: "Built for electronic music.",
   intro:
-    "House, techno, drum and bass, dubstep, trance. The system was put together for electronic music first, with the sub-bass and the headroom that genre asks for. It handles everything else as a bonus.",
+    "House, techno, drum and bass, dubstep, trance. That's what the system was put together for, so the sub-bass and the headroom are there. Other genres are fine too.",
   uses: [
     "Club nights and takeovers",
     "Pool parties and day parties",
@@ -258,23 +257,23 @@ export const audience = {
 
 export const process = {
   eyebrow: "How it works",
-  title: "Turn-key means turn-key.",
+  title: "What happens when you book.",
   intro: "You book the room and the lineup. We handle everything that makes noise.",
   steps: [
     {
       index: "01",
       title: "Tell us about the event",
-      body: "Date, location, crowd size, indoors or out, and whether there's power on site. A quick form or a phone call is enough to quote.",
+      body: "Date, where, roughly how many people, indoors or out, and whether there's power. The form or a phone call is enough for a quote.",
     },
     {
       index: "02",
       title: "We show up and set up",
-      body: "The rig, booth, cabling and power arrive together, with an engineer. We build it, tune it to the room and sound check before doors.",
+      body: "Everything arrives in one load with an engineer. We build it, tune it to the room and sound check before doors.",
     },
     {
       index: "03",
       title: "We run it, then we're gone",
-      body: "Someone stays on the system for the whole show. When it's over we tear down and load out. You never touch a cable.",
+      body: "Someone stays on the system the whole show. Afterwards we tear down and load out. You don't touch a cable.",
     },
   ],
 } as const;
@@ -326,7 +325,7 @@ export const inquiry = {
   eyebrow: "Get a quote",
   title: "Tell us about the show.",
   intro:
-    "A date and a rough headcount are enough to start. We reply personally, usually the same day, with a price and any questions about the site.",
+    "A date and a rough headcount is enough to start. We read every one and reply with a price and any questions about the venue.",
   eventTypes: [
     "Club night",
     "Pool or day party",
@@ -352,7 +351,7 @@ export const inquiry = {
 export const seo = {
   title: "Sound System Rental in Phoenix, AZ | Arizona Sound System",
   description:
-    "Turn-key sound system rental for events across Arizona. Line array, subs, DJ booth, silent battery power and an engineer, set up and run for crowds up to 1,000.",
+    "Sound system rental for events across Arizona. Line array, subs, DJ booth, our own battery power and an engineer to run it, for crowds up to 1,000.",
   keywords: [
     "sound system rental Phoenix",
     "sound system rental Arizona",
@@ -381,9 +380,9 @@ export const seo = {
 
 export const serviceArea = {
   eyebrow: "Where we go",
-  title: "Based in Phoenix. Booked anywhere in Arizona.",
+  title: "Based in Phoenix. We'll drive anywhere in Arizona.",
   intro:
-    "The rig, the power and the crew travel together, so distance is a drive rather than a problem. Metro Phoenix is home turf, and the rest of the state is a phone call.",
+    "Everything travels in one load, so the rest of the state is just a longer drive. Most of our work is around the Valley.",
   /** Shown as a list on the page and as areaServed in the structured data. */
   cities: [
     "Phoenix",
@@ -418,40 +417,40 @@ export const faq = {
   items: [
     {
       question: "How many people can the system play for?",
-      answer: `Up to about ${crowd.max} at full electronic-music volume outdoors. Indoors, or for lighter genres, it stretches further. Tell us the headcount and the space and we will say straight away whether it fits.`,
+      answer: `About ${crowd.max} outdoors at full electronic-music volume. Indoors, or for lighter music, more. Tell us the headcount and the space and we'll tell you if it fits.`,
     },
     {
       question: "Do we need to provide power?",
       answer:
-        "No. A battery power station big enough to run the whole show travels with the rig, silently and with no fumes, so rooftops, desert sites and old buildings with weak wiring are all fine. If the venue has good power we can use that instead.",
+        "No. We bring a battery power station that runs the whole show. No noise, no exhaust, so rooftops, desert sites and old buildings with weak wiring are fine. If the venue has good power we can use that.",
     },
     {
       question: "What exactly is included?",
       answer:
-        "The full system: line array tops, subwoofers, booth monitors, all cabling, power, and an engineer who delivers it, sets it up, tunes it to the room, runs it for the whole show and takes it down afterwards. You never touch a cable.",
+        "Everything. Tops, subs, booth monitors, cables, power, and an engineer who delivers it, sets it up, tunes it, runs it for the whole show and takes it down after.",
     },
     {
       question: "Do you supply DJ decks and a mixer?",
       answer:
-        "Most artists bring their own and plug into the booth. If you need decks and a mixer supplied, say so on the quote form and we will sort it.",
+        "Most DJs bring their own and plug into the booth. If you need decks and a mixer, say so on the form.",
     },
     {
       question: "What kind of events do you do?",
       answer:
-        "Club nights and takeovers, pool and day parties, warehouse and after-hours events, desert and outdoor gatherings, festival side stages, private parties and brand events. The system was built for EDM, and it handles everything else as a bonus.",
+        "Club nights, pool parties, warehouse and after-hours events, desert and outdoor stuff, festival side stages, private parties, brand events. The system was built for electronic music. Other genres are fine.",
     },
     {
       question: "Where do you travel?",
-      answer: `Anywhere in Arizona. We are based in Phoenix and regularly work ${serviceArea.cities.slice(1, 4).join(", ")} and the rest of the Valley, and we drive to Tucson, Flagstaff, Sedona and the desert in between.`,
+      answer: `Anywhere in Arizona. We're in Phoenix and do most of our work around the Valley. Tucson, Flagstaff, Sedona and anywhere between is fine, it's just a longer drive.`,
     },
     {
       question: "Can you keep the bass off the neighbours?",
       answer:
-        "Mostly, yes. The subwoofers can be arranged to throw forward into the crowd and cancel behind the stage, which is what keeps a residential street or a hotel behind you happier. Tell us about the site and we will plan the layout.",
+        "Mostly. The subs can be set up to throw forward into the crowd and cancel behind the stage, which helps a lot with a residential street or a hotel behind you. Tell us about the site and we'll plan the layout.",
     },
     {
       question: "How do I get a price?",
-      answer: `Fill in the form below or call ${contact.phone}. A date, a location and a rough headcount are enough for a quote, and a real person replies, usually the same day. Earlier is better, but ask about short notice.`,
+      answer: `Fill in the form below or call ${contact.phone}. A date, a location and a rough headcount is enough to quote. Earlier is better, but ask about short notice.`,
     },
   ],
 } as const;
@@ -461,7 +460,7 @@ export const faq = {
 /* -------------------------------------------------------------------------- */
 
 export const footer = {
-  blurb: "Turn-key sound rental for events, based in Arizona.",
+  blurb: "Sound system rental for events. Based in Phoenix.",
   columns: [
     {
       title: "Site",

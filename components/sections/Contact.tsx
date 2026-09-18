@@ -54,7 +54,7 @@ export function Contact() {
               <div className="border-ink/15 flex flex-col gap-1 border-b py-4 sm:flex-row sm:items-baseline sm:gap-6">
                 <dt className="label-xs text-ink/60 w-24 shrink-0">Based in</dt>
                 <dd className="text-ink/80 text-[1.0625rem]">
-                  Phoenix, serving all of Arizona
+                  Phoenix. We travel anywhere in Arizona.
                 </dd>
               </div>
             </dl>

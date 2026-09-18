@@ -35,8 +35,8 @@ export function InquiryForm() {
   if (status === "success") {
     return (
       <FormSuccess
-        title="Got it. We'll be in touch."
-        body={`A real person reads every message and replies with a quote, usually the same day. If it's urgent, call ${contact.phone}.`}
+        title="Got it."
+        body={`We'll read it and get back to you with a price. If it's urgent, call ${contact.phone}.`}
         actionLabel="Send another message"
         onAction={reset}
       />
@@ -141,7 +141,7 @@ export function InquiryForm() {
         id="inq-message"
         label="About the event"
         error={errors.message}
-        hint="Rough headcount, indoors or out, whether there's power on site, and anything else we should know."
+        hint="How many people, indoors or out, whether there's power, anything else we should know."
       >
         <TextArea
           id="inq-message"
@@ -161,7 +161,7 @@ export function InquiryForm() {
           {busy ? "Sending…" : "Send"}
         </Button>
         <p className="text-ink/65 text-[0.8125rem] leading-relaxed">
-          Goes straight to us. By sending you agree to the{" "}
+          By sending this you agree to the{" "}
           <Link
             href="/privacy"
             className="text-terracotta-deep underline underline-offset-4"

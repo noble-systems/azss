@@ -231,8 +231,8 @@ export function renderSenderEmail(record: InquiryRecord) {
   const firstName = record.name.trim().split(/\s+/)[0] || "there";
 
   const body = `
-    <p style="margin:0 0 16px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${INK};">Thanks ${escapeHtml(firstName)}, your message reached us.</p>
-    <p style="margin:0 0 26px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${MUTED};">A real person reads every inquiry and replies with a quote and any questions about the site, usually the same day. If it's urgent, call ${escapeHtml(contact.phone)}.</p>
+    <p style="margin:0 0 16px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${INK};">Thanks ${escapeHtml(firstName)}, we got your message.</p>
+    <p style="margin:0 0 26px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${MUTED};">We'll read it and reply with a price and any questions about the venue. If it's urgent, call ${escapeHtml(contact.phone)}.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid rgba(25,23,19,0.10);">
       ${factRows(facts(record))}
     </table>`;
@@ -242,9 +242,9 @@ export function renderSenderEmail(record: InquiryRecord) {
     <p style="margin:0;">You're getting this because you asked ${escapeHtml(brand.name)} for a quote. Reply to this email to reach us.</p>`;
 
   const text = [
-    `Thanks ${firstName}, your message reached us.`,
+    `Thanks ${firstName}, we got your message.`,
     "",
-    `A real person reads every inquiry and replies with a quote, usually the same day. If it's urgent, call ${contact.phone}.`,
+    `We'll read it and reply with a price. If it's urgent, call ${contact.phone}.`,
     "",
     ...facts(record).map(([label, value]) => `${label}: ${value}`),
     "",
@@ -254,10 +254,10 @@ export function renderSenderEmail(record: InquiryRecord) {
   ].join("\n");
 
   return {
-    subject: `Your quote request to ${brand.shortName}`,
+    subject: `Your message to ${brand.name}`,
     html: shell({
-      preheader: "We have your request and will come back with a quote.",
-      heading: "Message received.",
+      preheader: "We'll reply with a price.",
+      heading: "Got it.",
       body,
       footer,
     }),

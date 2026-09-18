@@ -145,9 +145,8 @@ export default function PrivacyPage() {
             </p>
 
             <p className="text-ink/70 mt-8 text-[1.0625rem] leading-relaxed">
-              This page explains what this website collects, why, who else touches
-              it, and how to get it removed. It is written to match the code rather
-              than to sound impressive.
+              This page says what the site collects, why, who else sees it, and how
+              to get it removed.
             </p>
 
             <div className="mt-12 space-y-10">
