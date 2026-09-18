@@ -151,7 +151,7 @@ export type GearItem = {
 export const system = {
   eyebrow: "The system",
   title: "What shows up.",
-  intro: `The same rig every time, owned and maintained by us, not rented in from someone else the morning of. High-end touring gear sized for crowds up to ${crowd.max}, and it comes as one package: tops, subs, booth, cabling, power and the person who runs it.`,
+  intro: `The same rig every time, owned and maintained by us. High-end touring gear sized for crowds up to ${crowd.max}, and it comes as one package: tops, subs, booth, cabling, power and the person who runs it.`,
 } as const;
 
 export const gear: readonly GearItem[] = [
@@ -160,7 +160,7 @@ export const gear: readonly GearItem[] = [
     index: "01",
     title: "The subs",
     lead: "The low end is the whole point.",
-    body: "Festival-grade subwoofers, the kind touring rigs and club installs run, and enough of them to move a full dance floor. Stacked under the tops or split across the room, and tuned to the space on the night rather than left on a preset.",
+    body: "Festival-grade subwoofers, the kind touring rigs and club installs run, and enough of them to move a full dance floor. Stacked under the tops or split across the room, and tuned to the space on the night.",
     points: [
       "High-end subs built for bass music",
       `Enough of them for crowds up to ${crowd.max}`,
@@ -175,9 +175,9 @@ export const gear: readonly GearItem[] = [
     index: "02",
     title: "The tops",
     lead: "Even coverage from the front row to the back wall.",
-    body: "A professional line array rather than speakers on sticks. Line arrays throw further and more evenly, so the people at the back hear the same mix as the people at the rail without the front row getting flattened.",
+    body: "A professional line array, flown from truss, stacked over the subs or up on poles, whichever the site calls for. Line arrays throw further and more evenly, so the people at the back hear the same mix as the people at the rail without the front row getting flattened.",
     points: [
-      "High-end line array, flown or stacked over the subs",
+      "High-end line array, flown, stacked over the subs, or on poles",
       "Aimed and time-aligned on site",
       "Clean at full volume, all night",
     ],
@@ -222,7 +222,7 @@ export const power = {
     },
     {
       title: "Clean",
-      body: "No fuel on site, no exhaust, and steady power for the amplifiers rather than a generator sagging on the kick.",
+      body: "No fuel on site, no exhaust, and steady power for the amplifiers all night.",
     },
     {
       title: "Indoors too",
