@@ -10,14 +10,14 @@ export default function NotFound() {
         <div className="shell flex min-h-[60svh] flex-col justify-center py-16">
           <p className="label-sm text-sun-soft">404</p>
           <h1 className="mt-5 text-[2.4rem] leading-[1.05] sm:text-5xl">
-            Nothing here.
+            Page not found.
           </h1>
           <p className="text-bone/65 mt-5 max-w-md text-[1.0625rem] leading-relaxed">
-            That page doesn't exist. Everything is on the front page.
+            That page does not exist. Head back to the home page.
           </p>
           <div className="mt-8">
             <ButtonLink href="/" variant="sun" size="lg">
-              Back to the front page
+              Back to the home page
               <ArrowIcon />
             </ButtonLink>
           </div>

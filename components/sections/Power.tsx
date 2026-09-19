@@ -72,16 +72,16 @@ export function Power() {
               sizes="(max-width: 1024px) 100vw, 40vw"
             >
               <div className="flex h-full flex-col justify-between p-6 sm:p-8">
-                <span className="label-xs text-bone/70">Our own power</span>
+                <span className="label-xs text-bone/70">Battery power</span>
                 <div>
                   <p className="font-display text-bone text-[2.2rem] leading-[0.95] font-bold tracking-[-0.03em] uppercase sm:text-[2.8rem]">
-                    Runs the
+                    Silent power
                     <br />
-                    whole show.
+                    for the whole event.
                   </p>
                   <p className="text-bone/70 mt-3 max-w-xs text-[0.9rem] leading-relaxed">
-                    Battery, not a generator. No noise, no exhaust, and it goes
-                    wherever the rig goes.
+                    Battery powered, so there is no generator noise or exhaust, and
+                    it goes wherever the system goes.
                   </p>
                 </div>
               </div>

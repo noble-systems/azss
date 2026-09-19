@@ -35,8 +35,8 @@ export function InquiryForm() {
   if (status === "success") {
     return (
       <FormSuccess
-        title="Got it."
-        body={`We'll read it and get back to you with a price. If it's urgent, call ${contact.phone}.`}
+        title="Message sent."
+        body={`We will get back to you with a quote. If it is urgent, call ${contact.phone}.`}
         actionLabel="Send another message"
         onAction={reset}
       />
@@ -102,7 +102,7 @@ export function InquiryForm() {
             id="inq-type"
             name="eventType"
             options={EVENT_TYPES}
-            placeholder="What are you putting on?"
+            placeholder="Select one"
             value={values.eventType}
             error={errors.eventType}
             disabled={busy}
@@ -141,13 +141,13 @@ export function InquiryForm() {
         id="inq-message"
         label="About the event"
         error={errors.message}
-        hint="How many people, indoors or out, whether there's power, anything else we should know."
+        hint="Expected crowd size, indoors or outdoors, whether the venue has power, and anything else we should know."
       >
         <TextArea
           id="inq-message"
           name="message"
           rows={6}
-          placeholder="About 300 people in a warehouse downtown, no house power…"
+          placeholder="Around 300 people in a warehouse downtown, no power on site"
           value={values.message}
           error={errors.message}
           disabled={busy}

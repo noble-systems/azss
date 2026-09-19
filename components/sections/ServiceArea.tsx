@@ -30,7 +30,7 @@ export function ServiceArea() {
               </li>
             ))}
             <li className="text-bone/55 rounded-full px-2 py-2 text-[0.9rem]">
-              and anywhere between
+              and surrounding areas
             </li>
           </ul>
         </Reveal>

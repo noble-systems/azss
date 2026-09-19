@@ -231,8 +231,8 @@ export function renderSenderEmail(record: InquiryRecord) {
   const firstName = record.name.trim().split(/\s+/)[0] || "there";
 
   const body = `
-    <p style="margin:0 0 16px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${INK};">Thanks ${escapeHtml(firstName)}, we got your message.</p>
-    <p style="margin:0 0 26px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${MUTED};">We'll read it and reply with a price and any questions about the venue. If it's urgent, call ${escapeHtml(contact.phone)}.</p>
+    <p style="margin:0 0 16px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${INK};">Thanks ${escapeHtml(firstName)}, we received your message.</p>
+    <p style="margin:0 0 26px;font:400 16px/1.65 Helvetica,Arial,sans-serif;color:${MUTED};">We will get back to you with a quote and any questions we have about the venue. If it is urgent, call ${escapeHtml(contact.phone)}.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid rgba(25,23,19,0.10);">
       ${factRows(facts(record))}
     </table>`;
@@ -242,9 +242,9 @@ export function renderSenderEmail(record: InquiryRecord) {
     <p style="margin:0;">You're getting this because you asked ${escapeHtml(brand.name)} for a quote. Reply to this email to reach us.</p>`;
 
   const text = [
-    `Thanks ${firstName}, we got your message.`,
+    `Thanks ${firstName}, we received your message.`,
     "",
-    `We'll read it and reply with a price. If it's urgent, call ${contact.phone}.`,
+    `We will get back to you with a quote. If it is urgent, call ${contact.phone}.`,
     "",
     ...facts(record).map(([label, value]) => `${label}: ${value}`),
     "",
@@ -256,8 +256,8 @@ export function renderSenderEmail(record: InquiryRecord) {
   return {
     subject: `Your message to ${brand.name}`,
     html: shell({
-      preheader: "We'll reply with a price.",
-      heading: "Got it.",
+      preheader: "We will get back to you with a quote.",
+      heading: "Message received.",
       body,
       footer,
     }),
