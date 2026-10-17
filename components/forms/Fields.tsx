@@ -41,7 +41,7 @@ export function Field({
     <div className={className}>
       <label
         htmlFor={id}
-        className="label-xs text-ink/70 mb-2.5 flex items-baseline gap-2"
+        className="text-ink/80 mb-2 flex items-baseline gap-2 text-[0.9rem] font-medium"
       >
         {label}
         {optional ? (
@@ -226,7 +226,7 @@ export function FormSuccess({
   return (
     <div
       role="status"
-      className="animate-rise border-ink/12 bg-bone-soft rounded-2xl border p-8 text-center sm:p-10"
+      className="border-ink/12 bg-bone-soft rounded-2xl border p-8 text-center sm:p-10"
     >
       <span
         aria-hidden="true"

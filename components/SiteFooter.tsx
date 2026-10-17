@@ -15,7 +15,7 @@ function ContactLine({
 }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span className="label-xs text-bone/55 w-24 shrink-0">{label}</span>
+      <span className="text-bone/55 w-24 shrink-0 text-[0.875rem]">{label}</span>
       {value && href ? (
         <a
           href={href}
@@ -91,7 +91,9 @@ export function SiteFooter() {
           >
             {footer.columns.map((column) => (
               <div key={column.title}>
-                <h2 className="label-xs text-bone/55">{column.title}</h2>
+                <h2 className="text-bone/60 text-[0.875rem] font-medium">
+                  {column.title}
+                </h2>
                 <ul className="mt-5 space-y-3">
                   {column.links.map((link) => (
                     <li key={link.href}>
@@ -113,7 +115,6 @@ export function SiteFooter() {
           <p className="text-bone/55 text-[0.8125rem]">
             © {year} {brand.name}. All rights reserved.
           </p>
-          <p className="label-xs text-bone/55">Made in {brand.region}</p>
         </div>
       </div>
     </footer>

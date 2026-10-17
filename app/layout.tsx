@@ -29,7 +29,6 @@ export const metadata: Metadata = {
   },
   description: seo.description,
   applicationName: brand.name,
-  keywords: [...seo.keywords],
   authors: [{ name: brand.name, url: brand.domain }],
   creator: brand.name,
   publisher: brand.name,

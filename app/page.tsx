@@ -1,3 +1,4 @@
+import { BUSINESS_ID, JsonLd, WEBSITE_ID } from "@/components/JsonLd";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Contact } from "@/components/sections/Contact";
@@ -8,35 +9,19 @@ import { Power } from "@/components/sections/Power";
 import { Process } from "@/components/sections/Process";
 import { ServiceArea } from "@/components/sections/ServiceArea";
 import { System } from "@/components/sections/System";
-import {
-  audience,
-  brand,
-  contact,
-  crowd,
-  faq,
-  hero,
-  seo,
-  serviceArea,
-} from "@/content/site";
+import { brand, contact, faq, seo, serviceArea, serviceList } from "@/content/site";
 
 /**
- * Structured data. Only facts we actually have: no ratings, prices or
- * opening hours are asserted, because inventing any of those is how a site
- * gets a manual action rather than a rich result.
- *
- * Three graphs on one page, linked by @id:
- *   LocalBusiness  who we are, where we work, what we offer
- *   WebSite        the site itself, owned by the business
- *   FAQPage        the questions section, word for word
+ * Structured data. Only facts we have: no ratings, prices or opening hours,
+ * because making any of those up is how a site gets a manual action instead
+ * of a rich result. The address is city-level on purpose; we're a
+ * service-area business and Google says to hide the street address.
  */
 function StructuredData() {
-  const businessId = `${brand.domain}/#business`;
-  const websiteId = `${brand.domain}/#website`;
-
   const business = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": businessId,
+    "@id": BUSINESS_ID,
     name: brand.name,
     alternateName: brand.shortName,
     url: brand.domain,
@@ -65,62 +50,24 @@ function StructuredData() {
         containedInPlace: { "@type": "State", name: "Arizona" },
       })),
     ],
-    knowsAbout: [
-      "Sound system rental",
-      "PA system rental",
-      "Line array loudspeakers",
-      "Live audio engineering",
-      "Electronic music events",
-      "Battery power for events",
-    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Event sound",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Turn-key sound system rental",
-            description: `Line array, subwoofers, booth monitors and cabling, delivered and set up by an engineer who runs the system during the event, for up to about ${crowd.max} people.`,
-            areaServed: { "@type": "State", name: "Arizona" },
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Silent battery power for events",
-            description:
-              "Battery power that runs the whole show where there is no outlet.",
-            areaServed: { "@type": "State", name: "Arizona" },
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Audio engineer on site",
-            description:
-              "Setup, tuning, sound check and an engineer on the system for the whole event.",
-            areaServed: { "@type": "State", name: "Arizona" },
-          },
-        },
-      ],
+      itemListElement: serviceList.map((page) => ({
+        "@type": "Offer",
+        itemOffered: { "@id": `${brand.domain}/${page.slug}#service` },
+      })),
     },
-    // What the business is for, in the words the page uses.
-    slogan: hero.tagline,
-    keywords: audience.uses.join(", "),
   };
 
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": websiteId,
+    "@id": WEBSITE_ID,
     url: brand.domain,
     name: brand.name,
     description: seo.description,
-    publisher: { "@id": businessId },
+    publisher: { "@id": BUSINESS_ID },
     inLanguage: "en-US",
   };
 
@@ -128,7 +75,7 @@ function StructuredData() {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${brand.domain}/#faq`,
-    isPartOf: { "@id": websiteId },
+    isPartOf: { "@id": WEBSITE_ID },
     mainEntity: faq.items.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -136,19 +83,7 @@ function StructuredData() {
     })),
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        // JSON.stringify does not escape "<". Everything here is authored in
-        // this repo, but escaping costs nothing and closes the door.
-        __html: JSON.stringify([business, website, faqPage]).replace(
-          /</g,
-          "\\u003c",
-        ),
-      }}
-    />
-  );
+  return <JsonLd data={[business, website, faqPage]} />;
 }
 
 export default function HomePage() {

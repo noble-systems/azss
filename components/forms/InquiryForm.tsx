@@ -141,13 +141,13 @@ export function InquiryForm() {
         id="inq-message"
         label="About the event"
         error={errors.message}
-        hint="Expected crowd size, indoors or outdoors, whether the venue has power, and anything else we should know."
+        hint="Expected crowd size, indoors or outdoors, start and end times, and anything else we should know."
       >
         <TextArea
           id="inq-message"
           name="message"
           rows={6}
-          placeholder="Around 300 people in a warehouse downtown, no power on site"
+          placeholder="About 300 people in a warehouse downtown, 9 pm to 2 am"
           value={values.message}
           error={errors.message}
           disabled={busy}

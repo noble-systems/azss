@@ -114,7 +114,7 @@ export function Media({
 
   return (
     <div
-      className={`grain relative isolate overflow-hidden ${className}`}
+      className={`relative isolate overflow-hidden ${className}`}
       style={backdrop ? { backgroundImage: spec.background } : undefined}
     >
       {backdrop ? (
@@ -124,7 +124,9 @@ export function Media({
             spec.ink === "light" ? "text-bone" : "text-ink"
           }`}
         >
-          <Motif />
+          {/* The equalizer bars only fill an empty slot now. Behind a
+              product photo they looked like template decoration. */}
+          {src ? null : <Motif />}
           <div
             className="absolute inset-0"
             style={{

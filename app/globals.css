@@ -188,54 +188,13 @@
 }
 
 /* ==========================================================================
-   MOTION - restrained, and fully disabled under reduced-motion
+   MOTION. Only hover transitions now; the scroll fade-ins went in October
+   2026 with the rest of the template look.
    ========================================================================== */
-
-.reveal {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
-  transition:
-    opacity 0.85s var(--ease-soft),
-    transform 0.85s var(--ease-soft);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal[data-visible="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.animate-rise {
-  animation: rise 0.9s var(--ease-soft) both;
-  animation-delay: var(--rise-delay, 0ms);
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .animate-rise {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 
   *,

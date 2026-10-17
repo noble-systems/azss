@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { brand } from "@/content/site";
+import { brand, serviceList } from "@/content/site";
 
 /**
- * Two pages, so a hand-written list. lastModified is the build time: the
- * page is static, and a rebuild is the only way it changes.
+ * Hand-written, since there are only a few pages. lastModified is the build
+ * time: every page is static, and a rebuild is the only way one changes.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const built = new Date();
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    ...serviceList.map((page) => ({
+      url: `${brand.domain}/${page.slug}`,
+      lastModified: built,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${brand.domain}/privacy`,
       lastModified: built,

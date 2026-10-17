@@ -6,7 +6,14 @@ import { Wordmark } from "@/components/Wordmark";
 import { buttonClass } from "@/components/ui/Button";
 import { contact, navLinks } from "@/content/site";
 
-export function SiteHeader({ overlay = true }: { overlay?: boolean }) {
+export function SiteHeader({
+  overlay = true,
+  ownContact = overlay,
+}: {
+  overlay?: boolean;
+  /** The page has its own #contact section, so "Get a quote" stays on it. */
+  ownContact?: boolean;
+}) {
   const [scrolled, setScrolled] = useState(!overlay);
   const [menuOpen, setMenuOpen] = useState(false);
   const [current, setCurrent] = useState<string | null>(null);
@@ -38,7 +45,9 @@ export function SiteHeader({ overlay = true }: { overlay?: boolean }) {
   useEffect(() => {
     if (!overlay || typeof IntersectionObserver === "undefined") return;
 
-    const ids = navLinks.map((link) => link.href.replace("#", ""));
+    const ids = navLinks
+      .filter((link) => link.href.startsWith("#"))
+      .map((link) => link.href.replace("#", ""));
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((node): node is HTMLElement => node !== null);
@@ -79,10 +88,10 @@ export function SiteHeader({ overlay = true }: { overlay?: boolean }) {
 
   const solid = scrolled || !overlay;
 
-  /** On the home page the section links are plain hashes; elsewhere they go home first. */
+  /** Hash links stay on the page when it has that section, otherwise they go home first. */
   const sectionHref = (href: string) => {
     if (!href.startsWith("#")) return href;
-    return overlay ? href : `/${href}`;
+    return ownContact ? href : `/${href}`;
   };
 
   return (
@@ -204,13 +213,12 @@ export function SiteHeader({ overlay = true }: { overlay?: boolean }) {
             className="shell flex flex-1 flex-col justify-center overflow-y-auto py-8"
           >
             <ul className="space-y-1">
-              {navLinks.map((link, index) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={sectionHref(link.href)}
                     onClick={closeMenu}
-                    style={{ ["--rise-delay" as string]: `${index * 45}ms` }}
-                    className="animate-rise border-bone/12 font-display hover:text-sun block border-b py-4 text-[2rem] leading-tight tracking-[-0.02em] transition-colors duration-200"
+                    className="border-bone/12 font-display hover:text-sun block border-b py-4 text-[2rem] leading-tight tracking-[-0.02em] transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -233,8 +241,6 @@ export function SiteHeader({ overlay = true }: { overlay?: boolean }) {
                 Call {contact.phone}
               </a>
             </div>
-
-            <p className="label-xs text-bone/55 mt-10">Phoenix, Arizona</p>
           </nav>
         </div>
       </dialog>

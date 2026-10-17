@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Reveal } from "./Reveal";
 
 /**
  * The site is dark by default, so "night" and "char" are the resting tones and
@@ -16,9 +15,9 @@ const TONE_CLASS: Record<SectionTone, string> = {
 };
 
 const PADDING = {
-  sm: "py-16 md:py-20",
-  md: "py-20 md:py-28",
-  lg: "py-24 md:py-36",
+  sm: "py-14 md:py-16",
+  md: "py-16 md:py-20",
+  lg: "py-16 md:py-24",
 } as const;
 
 export function Section({
@@ -28,8 +27,6 @@ export function Section({
   className = "",
   innerClassName = "",
   labelledBy,
-  /** Full-bleed decoration rendered behind the content, outside the shell. */
-  backdrop,
   children,
 }: {
   id?: string;
@@ -38,7 +35,6 @@ export function Section({
   className?: string;
   innerClassName?: string;
   labelledBy?: string;
-  backdrop?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -48,82 +44,39 @@ export function Section({
       data-tone={tone}
       className={`relative isolate ${TONE_CLASS[tone]} ${PADDING[size]} ${className}`}
     >
-      {backdrop ? (
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10"
-        >
-          {backdrop}
-        </div>
-      ) : null}
       <div className={`shell ${innerClassName}`}>{children}</div>
     </section>
   );
 }
 
-export function Eyebrow({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <p className={`label-sm flex items-center gap-3 opacity-70 ${className}`}>
-      <span aria-hidden="true" className="h-px w-6 bg-current opacity-60" />
-      {children}
-    </p>
-  );
-}
-
+/**
+ * A plain h2 and an optional paragraph. It used to carry a small uppercase
+ * label above every heading and fade each line in on scroll; Daniel said the
+ * site looked AI-made, and those two things were a big part of why.
+ */
 export function SectionHeader({
-  eyebrow,
   title,
   intro,
   id,
-  align = "left",
   className = "",
-  titleClassName = "",
   children,
 }: {
-  eyebrow?: ReactNode;
   title: ReactNode;
   intro?: ReactNode;
   id?: string;
-  align?: "left" | "center";
   className?: string;
-  titleClassName?: string;
   children?: ReactNode;
 }) {
   return (
-    <header
-      className={`${align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"} ${className}`}
-    >
-      {eyebrow ? (
-        <Reveal>
-          <Eyebrow className={align === "center" ? "justify-center" : ""}>
-            {eyebrow}
-          </Eyebrow>
-        </Reveal>
-      ) : null}
-
-      <Reveal delay={60}>
-        <h2
-          id={id}
-          className={`mt-5 text-[2.1rem] leading-[1.02] sm:text-5xl lg:text-[3.6rem] ${titleClassName}`}
-        >
-          {title}
-        </h2>
-      </Reveal>
-
+    <header className={`max-w-3xl ${className}`}>
+      <h2 id={id} className="text-[1.85rem] leading-tight sm:text-[2.4rem]">
+        {title}
+      </h2>
       {intro ? (
-        <Reveal delay={120}>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed opacity-75 sm:text-lg">
-            {intro}
-          </p>
-        </Reveal>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed opacity-80 sm:text-[1.0625rem]">
+          {intro}
+        </p>
       ) : null}
-
       {children}
     </header>
   );
