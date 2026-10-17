@@ -1,17 +1,19 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter_Tight } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import { brand, contact, seo } from "@/content/site";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
+const display = Barlow_Condensed({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  weight: ["600", "700"],
+  variable: "--font-barlow-condensed",
   display: "swap",
 });
 
-const sans = Inter_Tight({
+const sans = Barlow({
   subsets: ["latin"],
-  variable: "--font-inter-tight",
+  weight: ["400", "500", "600"],
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -76,7 +78,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0a09",
+  themeColor: "#0a0a0a",
   colorScheme: "dark",
 };
 

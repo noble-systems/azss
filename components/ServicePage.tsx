@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Contact } from "@/components/sections/Contact";
 import { ArrowIcon, ButtonLink } from "@/components/ui/Button";
 import { Media } from "@/components/ui/Media";
+import { LINK_CLASS } from "@/components/ui/Section";
 import { brand, contact, serviceList, type ServicePage } from "@/content/site";
 
 export function serviceMetadata(page: ServicePage): Metadata {
@@ -76,10 +77,7 @@ export function ServicePageView({ page }: { page: ServicePage }) {
                 <span aria-hidden="true"> / </span>
                 <span>{page.linkLabel}</span>
               </nav>
-              <h1
-                id="page-title"
-                className="mt-4 text-[2.1rem] leading-[1.1] font-bold sm:text-[2.8rem]"
-              >
+              <h1 id="page-title" className="mt-4 text-[2.6rem] sm:text-[3.5rem]">
                 {page.h1}
               </h1>
               {page.intro.map((paragraph) => (
@@ -107,7 +105,7 @@ export function ServicePageView({ page }: { page: ServicePage }) {
             </div>
 
             <Media
-              tone="ember"
+              tone="night"
               src={page.image}
               alt={page.imageAlt}
               hideNote
@@ -115,23 +113,23 @@ export function ServicePageView({ page }: { page: ServicePage }) {
               fit={page.imageFit}
               imageClassName={page.imageFit === "contain" ? "p-10" : ""}
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="aspect-[4/3] w-full rounded-lg"
+              className="aspect-[4/3] w-full"
             />
           </div>
         </section>
 
-        <section className="on-light bg-bone text-ink py-14 md:py-20">
+        <section className="bg-night text-bone border-line border-t py-14 md:py-20">
           <div className="shell">
             <div className="max-w-3xl space-y-10">
               {page.sections.map((section) => (
                 <div key={section.heading}>
-                  <h2 className="text-[1.6rem] leading-tight sm:text-[2rem]">
+                  <h2 className="text-[1.9rem] sm:text-[2.3rem]">
                     {section.heading}
                   </h2>
                   {section.body.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-ink/80 mt-3 text-[1.0625rem] leading-relaxed"
+                      className="text-bone/70 mt-3 text-[1.0625rem] leading-relaxed"
                     >
                       {paragraph}
                     </p>
@@ -140,24 +138,21 @@ export function ServicePageView({ page }: { page: ServicePage }) {
               ))}
             </div>
 
-            <div className="border-ink/15 mt-14 max-w-3xl border-t pt-8">
-              <h2 className="text-[1.2rem] leading-tight">Also from us</h2>
+            <div className="border-line mt-14 max-w-3xl border-t pt-8">
+              <h2 className="text-[1.5rem]">Also from us</h2>
               <ul className="mt-3 space-y-2">
                 {others.map((other) => (
                   <li key={other.slug}>
                     <Link
                       href={`/${other.slug}`}
-                      className="text-terracotta-deep text-[1.0625rem] font-medium underline underline-offset-4 hover:no-underline"
+                      className={`${LINK_CLASS} text-[1.0625rem]`}
                     >
                       {other.linkLabel}
                     </Link>
                   </li>
                 ))}
                 <li>
-                  <Link
-                    href="/#faq"
-                    className="text-terracotta-deep text-[1.0625rem] font-medium underline underline-offset-4 hover:no-underline"
-                  >
+                  <Link href="/#faq" className={`${LINK_CLASS} text-[1.0625rem]`}>
                     Questions people ask
                   </Link>
                 </li>

@@ -1,26 +1,32 @@
 import Link from "next/link";
-import { Section } from "@/components/ui/Section";
+import { H2_CLASS, LINK_CLASS, Section } from "@/components/ui/Section";
 import { events, process, services } from "@/content/site";
 
 /** Booking steps on the left, the kinds of events we do on the right. */
 export function Process() {
   return (
-    <Section id="process" tone="sand" size="lg" labelledBy="process-title">
+    <Section id="process" labelledBy="process-title">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h2
-            id="process-title"
-            className="text-[1.85rem] leading-tight sm:text-[2.4rem]"
-          >
+          <h2 id="process-title" className={H2_CLASS}>
             {process.title}
           </h2>
-          <ol className="mt-6 space-y-6">
+          <ol className="mt-6">
             {process.steps.map((step, index) => (
-              <li key={step.title}>
-                <h3 className="text-[1.2rem] leading-tight">
-                  {index + 1}. {step.title}
+              <li
+                key={step.title}
+                className="border-line relative border-t py-5 pl-14"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-display text-sun absolute top-3.5 left-0 text-[2.2rem] leading-none font-bold"
+                >
+                  {index + 1}
+                </span>
+                <h3 className="font-sans text-[1.125rem] font-semibold tracking-normal normal-case">
+                  {step.title}
                 </h3>
-                <p className="text-ink/75 mt-2 text-[0.9375rem] leading-relaxed">
+                <p className="text-bone/65 mt-1 text-base leading-relaxed">
                   {step.body}
                 </p>
               </li>
@@ -29,15 +35,13 @@ export function Process() {
         </div>
 
         <div>
-          <h2 className="text-[1.85rem] leading-tight sm:text-[2.4rem]">
-            {events.title}
-          </h2>
-          <p className="text-ink/75 mt-6 text-[1.0625rem] leading-relaxed">
+          <h2 className={H2_CLASS}>{events.title}</h2>
+          <p className="text-bone/65 mt-6 text-[1.0625rem] leading-relaxed">
             {events.body}
           </p>
           <Link
             href={`/${services.dj.slug}`}
-            className="text-terracotta-deep mt-5 inline-block text-[0.9375rem] font-medium underline underline-offset-4 hover:no-underline"
+            className={`${LINK_CLASS} mt-5 inline-block`}
           >
             {services.dj.linkLabel}
           </Link>

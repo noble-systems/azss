@@ -35,7 +35,7 @@ export function InquiryForm() {
   if (status === "success") {
     return (
       <FormSuccess
-        title="Message sent."
+        title="Message sent"
         body={`We will get back to you with a quote. If it is urgent, call ${contact.phone}.`}
         actionLabel="Send another message"
         onAction={reset}
@@ -160,12 +160,9 @@ export function InquiryForm() {
           {busy ? <Spinner /> : null}
           {busy ? "Sending…" : "Send"}
         </Button>
-        <p className="text-ink/65 text-[0.8125rem] leading-relaxed">
+        <p className="text-bone/55 text-[0.8125rem] leading-relaxed">
           By sending this you agree to the{" "}
-          <Link
-            href="/privacy"
-            className="text-terracotta-deep underline underline-offset-4"
-          >
+          <Link href="/privacy" className="text-sun underline underline-offset-4">
             privacy policy
           </Link>
           .

@@ -2,49 +2,43 @@
 
 /* ==========================================================================
    ARIZONA SOUND SYSTEM - DESIGN TOKENS
-   Desert night. Black off the logo, a sunset sun, terracotta bars.
+   Black, one orange, condensed headings. Daniel picked this layout ("A")
+   from three mockups in October 2026, after the beige-and-terracotta
+   version kept reading as AI-made.
    ========================================================================== */
 
 @theme {
-  /* Night - warm near-black, matches the logo ground */
-  --color-night: #0b0a09;
-  --color-night-soft: #141210;
-  --color-char: #1e1a16;
+  /* Backgrounds, darkest first */
+  --color-night: #0a0a0a;
+  --color-night-soft: #111111;
+  --color-char: #161616;
+  --color-panel: #1f1f1f;
+  --color-line: #2a2a2a;
 
-  /* Bone - the light surface */
-  --color-bone: #f4ede2;
-  --color-bone-soft: #faf6ee;
-  --color-sand: #e8dcc6;
-  --color-sand-deep: #d6c4a3;
+  /* Text on dark. bone-soft is only for the odd light surface left over */
+  --color-bone: #ececec;
+  --color-bone-soft: #f5f5f5;
 
-  /* Ink - warm charcoal for text on light surfaces */
-  --color-ink: #191713;
-  --color-ink-600: #4b453b;
-  --color-ink-400: #7d7465;
+  /* Text on the orange band */
+  --color-ink: #111111;
 
-  /* Sun - the gradient at the top of the logo */
-  --color-sun: #e2a233;
-  --color-sun-soft: #f0c66e;
-  --color-sun-deep: #b97c1e;
+  /* The orange. Named sun because that's what it was called before */
+  --color-sun: #e8742c;
+  --color-sun-soft: #f08c4a;
+  --color-sun-deep: #c55d1c;
 
-  /* Ember - the bottom of the sun */
-  --color-ember: #e4592c;
-  --color-ember-soft: #f08a5a;
+  /* Error text on dark */
+  --color-ember-soft: #f59b75;
 
-  /* Terracotta - the bars */
+  /* The logo's bars. Wordmark.tsx hard-codes its own copy */
   --color-terracotta: #c25a3a;
-  --color-terracotta-soft: #d98a63;
-  /* Darkened for error text so it clears 4.5:1 on bone */
-  --color-terracotta-deep: #9a3f24;
 
   --font-display:
-    var(--font-bricolage), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
+    var(--font-barlow-condensed), "Arial Narrow", ui-sans-serif, system-ui,
+    sans-serif;
   --font-sans:
-    var(--font-inter-tight), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
-
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    var(--font-barlow), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
 }
 
 /* ==========================================================================
@@ -81,8 +75,10 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.03em;
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
     text-wrap: balance;
   }
 
@@ -96,14 +92,13 @@
     border-radius: 3px;
   }
 
-  /* Light surfaces flip the ring so it stays legible. */
-  .on-light {
-    --focus-ring: var(--color-terracotta-deep);
-    --mark-cutout: var(--color-bone);
+  /* The orange band flips the ring so it stays visible. */
+  .on-orange {
+    --focus-ring: var(--color-ink);
   }
 
   ::selection {
-    background-color: var(--color-sun-soft);
+    background-color: var(--color-sun);
     color: var(--color-ink);
   }
 
@@ -125,66 +120,16 @@
    UTILITIES
    ========================================================================== */
 
-/* Film grain - keeps gradient placeholders reading as photographic */
-@utility grain {
-  position: relative;
-  isolation: isolate;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    opacity: 0.13;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-  }
-}
-
-/* Small uppercase label voice used for eyebrows, meta and nav */
-@utility label-xs {
-  font-size: 0.75rem;
-  line-height: 1.15;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-@utility label-sm {
-  font-size: 0.8125rem;
-  line-height: 1.15;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
 /* Page gutter, consistent everywhere */
 @utility shell {
   width: 100%;
-  max-width: 84rem;
+  max-width: 77rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
 
   @media (min-width: 768px) {
-    padding-inline: 2.5rem;
+    padding-inline: 2rem;
   }
-
-  @media (min-width: 1280px) {
-    padding-inline: 3.5rem;
-  }
-}
-
-/* The sunset gradient off the logo, for accents and the big numerals */
-@utility text-sunset {
-  background-image: linear-gradient(
-    180deg,
-    var(--color-sun) 0%,
-    var(--color-ember) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 /* ==========================================================================

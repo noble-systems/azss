@@ -5,19 +5,17 @@ export type ButtonVariant = "primary" | "sun" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const BASE =
-  "group relative inline-flex items-center justify-center gap-2.5 rounded-full font-medium text-center " +
+  "group relative inline-flex items-center justify-center gap-2.5 font-semibold text-center " +
   "transition-[background-color,color,border-color,transform,box-shadow] duration-300 ease-out " +
   "active:translate-y-px disabled:cursor-not-allowed disabled:opacity-55 disabled:active:translate-y-0";
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  // Solid ink, the workhorse on light surfaces
-  primary:
-    "bg-ink text-bone hover:bg-terracotta shadow-[0_1px_0_rgba(25,23,19,0.08)]",
-  // Sun fill, the "book it" action, works on light and dark
+  // Same as sun. The form's Send button asks for primary.
+  primary: "bg-sun text-ink hover:bg-sun-soft",
+  // Orange fill, the "get a quote" action
   sun: "bg-sun text-ink hover:bg-sun-soft",
-  // Hairline outline, inherits the surrounding text colour
-  outline:
-    "border border-current/30 hover:border-current/70 hover:bg-current/[0.07]",
+  // White outline, inherits the surrounding text colour
+  outline: "border-2 border-current hover:bg-current/[0.08]",
   // Transparent until hovered
   ghost: "hover:bg-current/[0.07]",
 };

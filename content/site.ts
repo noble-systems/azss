@@ -402,10 +402,6 @@ export type MediaSlot = {
   imageAlt: string;
 };
 
-export const gallery = {
-  title: "Photos",
-} as const;
-
 export const gallerySlots: readonly MediaSlot[] = [
   {
     id: "pool",

@@ -1,56 +1,36 @@
 import { InquiryForm } from "@/components/forms/InquiryForm";
-import { Section } from "@/components/ui/Section";
+import { H2_CLASS, Section } from "@/components/ui/Section";
 import { contact, inquiry } from "@/content/site";
 
+/** The orange band: contact details on the left, the form on a black panel. */
 export function Contact() {
   return (
-    <Section id="contact" tone="sand" size="lg" labelledBy="contact-title">
-      <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+    <Section id="contact" tone="orange" labelledBy="contact-title">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-5">
-          <h2
-            id="contact-title"
-            className="text-[1.85rem] leading-tight sm:text-[2.4rem]"
-          >
+          <h2 id="contact-title" className={H2_CLASS}>
             {inquiry.title}
           </h2>
-          <p className="text-ink/75 mt-4 text-[1.0625rem] leading-relaxed">
+          <p className="text-ink/85 mt-3 text-[1.0625rem] leading-relaxed">
             {inquiry.intro}
           </p>
-
-          <dl className="mt-8 space-y-4 text-[1.0625rem]">
-            <div>
-              <dt className="text-ink/60 text-[0.875rem]">Phone</dt>
-              <dd>
-                <a
-                  href={contact.phoneHref}
-                  className="text-ink hover:text-terracotta-deep text-[1.4rem] font-semibold transition-colors duration-200"
-                >
-                  {contact.phone}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-ink/60 text-[0.875rem]">Email</dt>
-              <dd>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="text-ink hover:text-terracotta-deep underline-offset-4 transition-colors duration-200 hover:underline"
-                >
-                  {contact.email}
-                </a>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-ink/60 text-[0.875rem]">Based in</dt>
-              <dd className="text-ink/85">Phoenix, Arizona</dd>
-            </div>
-          </dl>
+          <a
+            href={contact.phoneHref}
+            className="font-display mt-6 block text-[2.2rem] leading-none font-bold hover:underline"
+          >
+            {contact.phone}
+          </a>
+          <a
+            href={`mailto:${contact.email}`}
+            className="mt-2 inline-block underline-offset-4 hover:underline"
+          >
+            {contact.email}
+          </a>
+          <p className="text-ink/80 mt-2">Based in Phoenix, Arizona</p>
         </div>
 
-        <div className="lg:col-span-7">
-          <div className="border-ink/12 bg-bone-soft rounded-lg border p-6 sm:p-8">
-            <InquiryForm />
-          </div>
+        <div className="bg-night text-bone p-6 sm:p-8 lg:col-span-7">
+          <InquiryForm />
         </div>
       </div>
     </Section>

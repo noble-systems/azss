@@ -86,7 +86,8 @@ export function SiteHeader({
     setMenuOpen(false);
   };
 
-  const solid = scrolled || !overlay;
+  // Layout A keeps the bar solid black all the time. `scrolled` still drives
+  // the hairline shadow once the page moves.
 
   /** Hash links stay on the page when it has that section, otherwise they go home first. */
   const sectionHref = (href: string) => {
@@ -97,10 +98,8 @@ export function SiteHeader({
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out ${
-          solid
-            ? "bg-night/85 text-bone shadow-[0_1px_0_rgba(244,237,226,0.10)] backdrop-blur-xl"
-            : "text-bone bg-transparent"
+        className={`border-line text-bone fixed inset-x-0 top-0 z-50 border-b bg-black ${
+          scrolled ? "shadow-[0_6px_20px_rgba(0,0,0,0.5)]" : ""
         }`}
       >
         <div className="shell flex h-[4.5rem] items-center justify-between gap-6 lg:h-20">
@@ -121,14 +120,14 @@ export function SiteHeader({
                     <a
                       href={sectionHref(link.href)}
                       aria-current={active ? "true" : undefined}
-                      className={`relative block rounded-full px-3.5 py-2 text-[0.875rem] transition-colors duration-200 hover:bg-current/[0.07] ${
-                        active ? "opacity-100" : "opacity-70 hover:opacity-100"
+                      className={`relative block px-3 py-2 text-[0.9375rem] font-medium transition-colors duration-200 ${
+                        active ? "text-bone" : "text-bone/65 hover:text-bone"
                       }`}
                     >
                       {link.label}
                       <span
                         aria-hidden="true"
-                        className={`absolute inset-x-3.5 -bottom-0.5 h-px origin-left bg-current transition-transform duration-300 ease-out ${
+                        className={`bg-sun absolute inset-x-3 -bottom-0.5 h-0.5 origin-left transition-transform duration-300 ease-out ${
                           active ? "scale-x-100" : "scale-x-0"
                         }`}
                       />
@@ -142,7 +141,7 @@ export function SiteHeader({
           <div className="flex items-center gap-2">
             <a
               href={contact.phoneHref}
-              className="text-bone/80 hover:text-bone hidden text-[0.875rem] tracking-[0.02em] transition-colors duration-200 md:inline-block"
+              className="text-sun hover:text-sun-soft hidden px-2 text-[0.9375rem] font-semibold transition-colors duration-200 md:inline-block"
             >
               {contact.phone}
             </a>
@@ -164,7 +163,7 @@ export function SiteHeader({
               onClick={() => setMenuOpen(true)}
               aria-expanded={menuOpen}
               aria-haspopup="dialog"
-              className="flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 hover:bg-current/[0.09] lg:hidden"
+              className="flex h-10 w-10 items-center justify-center transition-colors duration-200 hover:bg-current/[0.09] lg:hidden"
             >
               <span className="sr-only">Open menu</span>
               <svg viewBox="0 0 20 20" aria-hidden="true" className="h-5 w-5">
@@ -194,7 +193,7 @@ export function SiteHeader({
             <button
               type="button"
               onClick={closeMenu}
-              className="border-bone/20 hover:border-bone/50 flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-200"
+              className="border-bone/20 hover:border-bone/50 flex h-10 w-10 items-center justify-center border transition-colors duration-200"
             >
               <span className="sr-only">Close menu</span>
               <svg viewBox="0 0 20 20" aria-hidden="true" className="h-4 w-4">
@@ -218,7 +217,7 @@ export function SiteHeader({
                   <a
                     href={sectionHref(link.href)}
                     onClick={closeMenu}
-                    className="border-bone/12 font-display hover:text-sun block border-b py-4 text-[2rem] leading-tight tracking-[-0.02em] transition-colors duration-200"
+                    className="border-line font-display hover:text-sun block border-b py-4 text-[2rem] leading-tight font-bold uppercase transition-colors duration-200"
                   >
                     {link.label}
                   </a>

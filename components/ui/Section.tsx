@@ -1,21 +1,17 @@
 import type { ReactNode } from "react";
 
 /**
- * The site is dark by default, so "night" and "char" are the resting tones and
- * the light ones are the alternation. Light sections carry `.on-light`, which
- * flips the focus ring and the logo cutout colour (see globals.css).
+ * Every section is black with a thin line on top, except the quote band,
+ * which is orange. That's the layout Daniel picked from the mockups.
  */
-export type SectionTone = "night" | "char" | "bone" | "sand";
+export type SectionTone = "night" | "orange";
 
 const TONE_CLASS: Record<SectionTone, string> = {
-  night: "bg-night text-bone",
-  char: "bg-char text-bone",
-  bone: "on-light bg-bone text-ink",
-  sand: "on-light bg-sand text-ink",
+  night: "bg-night text-bone border-t border-line",
+  orange: "on-orange bg-sun text-ink",
 };
 
 const PADDING = {
-  sm: "py-14 md:py-16",
   md: "py-16 md:py-20",
   lg: "py-16 md:py-24",
 } as const;
@@ -23,7 +19,7 @@ const PADDING = {
 export function Section({
   id,
   tone = "night",
-  size = "md",
+  size = "lg",
   className = "",
   innerClassName = "",
   labelledBy,
@@ -41,7 +37,6 @@ export function Section({
     <section
       id={id}
       aria-labelledby={labelledBy}
-      data-tone={tone}
       className={`relative isolate ${TONE_CLASS[tone]} ${PADDING[size]} ${className}`}
     >
       <div className={`shell ${innerClassName}`}>{children}</div>
@@ -49,35 +44,34 @@ export function Section({
   );
 }
 
-/**
- * A plain h2 and an optional paragraph. It used to carry a small uppercase
- * label above every heading and fade each line in on scroll; Daniel said the
- * site looked AI-made, and those two things were a big part of why.
- */
+export const H2_CLASS = "text-[2.2rem] sm:text-[2.75rem]";
+
+/** A plain h2 and an optional paragraph under it. */
 export function SectionHeader({
   title,
   intro,
   id,
   className = "",
-  children,
 }: {
   title: ReactNode;
   intro?: ReactNode;
   id?: string;
   className?: string;
-  children?: ReactNode;
 }) {
   return (
     <header className={`max-w-3xl ${className}`}>
-      <h2 id={id} className="text-[1.85rem] leading-tight sm:text-[2.4rem]">
+      <h2 id={id} className={H2_CLASS}>
         {title}
       </h2>
       {intro ? (
-        <p className="mt-4 max-w-2xl text-base leading-relaxed opacity-80 sm:text-[1.0625rem]">
+        <p className="text-bone/65 mt-3 max-w-2xl text-[1.0625rem] leading-relaxed">
           {intro}
         </p>
       ) : null}
-      {children}
     </header>
   );
 }
+
+/** Orange text link used under sections and cards. */
+export const LINK_CLASS =
+  "text-sun font-semibold underline underline-offset-4 hover:no-underline";

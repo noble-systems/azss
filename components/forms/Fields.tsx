@@ -9,12 +9,12 @@ import type {
 } from "react";
 
 const CONTROL =
-  "w-full rounded-xl border bg-bone-soft px-4 py-3 text-[0.95rem] text-ink " +
-  "placeholder:text-ink/50 transition-colors duration-200 " +
-  "hover:border-ink/30 disabled:opacity-60 disabled:cursor-not-allowed";
+  "w-full border bg-panel px-4 py-3 text-[0.95rem] text-bone " +
+  "placeholder:text-bone/40 transition-colors duration-200 " +
+  "hover:border-bone/35 disabled:opacity-60 disabled:cursor-not-allowed";
 
-const CONTROL_OK = "border-ink/15";
-const CONTROL_BAD = "border-terracotta bg-terracotta/[0.04]";
+const CONTROL_OK = "border-bone/15";
+const CONTROL_BAD = "border-ember-soft";
 
 function controlClass(invalid?: boolean, extra = "") {
   return `${CONTROL} ${invalid ? CONTROL_BAD : CONTROL_OK} ${extra}`.trim();
@@ -41,11 +41,11 @@ export function Field({
     <div className={className}>
       <label
         htmlFor={id}
-        className="text-ink/80 mb-2 flex items-baseline gap-2 text-[0.9rem] font-medium"
+        className="text-bone/70 mb-2 flex items-baseline gap-2 text-[0.875rem] font-semibold"
       >
         {label}
         {optional ? (
-          <span className="text-ink/65 tracking-normal normal-case">optional</span>
+          <span className="text-bone/50 font-normal">optional</span>
         ) : null}
       </label>
 
@@ -54,7 +54,7 @@ export function Field({
       {error ? (
         <p
           id={`${id}-error`}
-          className="text-terracotta-deep mt-2 flex items-start gap-1.5 text-[0.8125rem]"
+          className="text-ember-soft mt-2 flex items-start gap-1.5 text-[0.8125rem]"
         >
           <svg
             aria-hidden="true"
@@ -67,7 +67,7 @@ export function Field({
           {error}
         </p>
       ) : hint ? (
-        <p id={`${id}-hint`} className="text-ink/65 mt-2 text-[0.8125rem]">
+        <p id={`${id}-hint`} className="text-bone/55 mt-2 text-[0.8125rem]">
           {hint}
         </p>
       ) : null}
@@ -150,7 +150,7 @@ export function Select({
         aria-hidden="true"
         viewBox="0 0 16 16"
         fill="none"
-        className="text-ink/65 pointer-events-none absolute top-1/2 right-4 h-3.5 w-3.5 -translate-y-1/2"
+        className="text-bone/60 pointer-events-none absolute top-1/2 right-4 h-3.5 w-3.5 -translate-y-1/2"
       >
         <path
           d="M4 6.5 8 10.5l4-4"
@@ -197,12 +197,12 @@ export function FormAlert({ message }: { message: string }) {
   return (
     <div
       role="alert"
-      className="border-terracotta/35 bg-terracotta/[0.07] text-ink flex items-start gap-3 rounded-xl border px-4 py-3 text-[0.875rem]"
+      className="border-ember-soft/50 text-bone flex items-start gap-3 border px-4 py-3 text-[0.875rem]"
     >
       <svg
         aria-hidden="true"
         viewBox="0 0 16 16"
-        className="text-terracotta mt-0.5 h-4 w-4 shrink-0"
+        className="text-ember-soft mt-0.5 h-4 w-4 shrink-0"
         fill="currentColor"
       >
         <path d="M8 1.5 15 14H1L8 1.5Zm0 4.2a.7.7 0 0 0-.7.75l.2 3a.5.5 0 0 0 1 0l.2-3A.7.7 0 0 0 8 5.7Zm0 5.3a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z" />
@@ -224,13 +224,10 @@ export function FormSuccess({
   onAction: () => void;
 }) {
   return (
-    <div
-      role="status"
-      className="border-ink/12 bg-bone-soft rounded-2xl border p-8 text-center sm:p-10"
-    >
+    <div role="status" className="p-6 text-center sm:p-8">
       <span
         aria-hidden="true"
-        className="bg-sun/25 text-sun-deep mx-auto flex h-12 w-12 items-center justify-center rounded-full"
+        className="bg-sun text-ink mx-auto flex h-12 w-12 items-center justify-center"
       >
         <svg viewBox="0 0 20 20" fill="none" className="h-6 w-6">
           <path
@@ -243,13 +240,13 @@ export function FormSuccess({
         </svg>
       </span>
       <h3 className="mt-5 text-2xl">{title}</h3>
-      <p className="text-ink/65 mx-auto mt-3 max-w-sm text-[0.9375rem] leading-relaxed">
+      <p className="text-bone/65 mx-auto mt-3 max-w-sm text-[0.9375rem] leading-relaxed">
         {body}
       </p>
       <button
         type="button"
         onClick={onAction}
-        className="text-terracotta-deep mt-6 text-[0.875rem] font-medium underline-offset-4 hover:underline"
+        className="text-sun mt-6 text-[0.875rem] font-semibold underline-offset-4 hover:underline"
       >
         {actionLabel}
       </button>

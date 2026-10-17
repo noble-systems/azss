@@ -123,12 +123,12 @@ export default function PrivacyPage() {
     <>
       <SiteHeader overlay={false} />
 
-      <main id="main" className="on-light bg-bone text-ink pt-[4.5rem] lg:pt-20">
+      <main id="main" className="bg-night text-bone pt-[4.5rem] lg:pt-20">
         <div className="shell py-16 md:py-24">
           <div className="max-w-2xl">
             <Link
               href="/"
-              className="group label-xs text-ink/65 hover:text-ink inline-flex items-center gap-2 transition-colors duration-200"
+              className="group text-bone/65 hover:text-bone inline-flex items-center gap-2 text-[0.9375rem] transition-colors duration-200"
             >
               <span aria-hidden="true" className="rotate-180">
                 <ArrowIcon />
@@ -136,15 +136,13 @@ export default function PrivacyPage() {
               Back to {brand.shortName}
             </Link>
 
-            <h1 className="mt-8 text-[2.4rem] leading-[1.05] sm:text-5xl">
-              Privacy policy
-            </h1>
+            <h1 className="mt-8 text-[2.6rem] sm:text-[3.25rem]">Privacy policy</h1>
 
-            <p className="label-xs text-ink/65 mt-5">
+            <p className="text-bone/55 mt-4 text-[0.9375rem]">
               Last updated 14 September 2026
             </p>
 
-            <p className="text-ink/70 mt-8 text-[1.0625rem] leading-relaxed">
+            <p className="text-bone/70 mt-8 text-[1.0625rem] leading-relaxed">
               This page says what the site collects, why, who else sees it, and how
               to get it removed.
             </p>
@@ -152,11 +150,11 @@ export default function PrivacyPage() {
             <div className="mt-12 space-y-10">
               {sections.map((section) => (
                 <section key={section.heading}>
-                  <h2 className="text-2xl leading-tight">{section.heading}</h2>
+                  <h2 className="text-[1.75rem]">{section.heading}</h2>
                   {section.body.map((paragraph, index) => (
                     <p
                       key={index}
-                      className="text-ink/70 mt-4 text-[0.9375rem] leading-relaxed"
+                      className="text-bone/70 mt-4 text-[0.9375rem] leading-relaxed"
                     >
                       {paragraph}
                     </p>
@@ -166,11 +164,11 @@ export default function PrivacyPage() {
                       {section.list.map((item) => (
                         <li
                           key={item}
-                          className="text-ink/70 flex items-start gap-3 text-[0.9375rem] leading-relaxed"
+                          className="text-bone/70 flex items-start gap-3 text-[0.9375rem] leading-relaxed"
                         >
                           <span
                             aria-hidden="true"
-                            className="bg-ink/35 mt-[0.6em] h-1 w-1 shrink-0 rounded-full"
+                            className="bg-bone/40 mt-[0.6em] h-1 w-1 shrink-0 rounded-full"
                           />
                           {item}
                         </li>

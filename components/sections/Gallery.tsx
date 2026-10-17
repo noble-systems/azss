@@ -1,25 +1,35 @@
-import { Media } from "@/components/ui/Media";
-import { Section, SectionHeader } from "@/components/ui/Section";
-import { gallery, gallerySlots } from "@/content/site";
+import Image from "next/image";
+import { hero, gallerySlots } from "@/content/site";
 
+/**
+ * Edge-to-edge strip of the three event photos, the wide one first. No
+ * heading: the photos are the point, and the alt text says what's in them.
+ */
 export function Gallery() {
-  return (
-    <Section id="gallery" tone="char" size="md" labelledBy="gallery-title">
-      <SectionHeader id="gallery-title" title={gallery.title} />
+  const photos = [
+    ...(hero.image
+      ? [{ id: "hero", image: hero.image, imageAlt: hero.imageAlt }]
+      : []),
+    ...gallerySlots,
+  ].filter((photo) => photo.image);
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {gallerySlots.map((slot) => (
-          <Media
-            key={slot.id}
-            tone={slot.tone}
-            src={slot.image}
-            alt={slot.imageAlt}
-            hideNote
-            sizes="(max-width: 640px) 100vw, 50vw"
-            className="aspect-[4/5] w-full rounded-lg"
+  return (
+    <section
+      id="gallery"
+      aria-label="Photos from our events"
+      className="grid gap-1 sm:grid-cols-[1.5fr_1fr_1fr]"
+    >
+      {photos.map((photo) => (
+        <div key={photo.id} className="relative h-[360px] sm:h-[520px]">
+          <Image
+            src={photo.image as string}
+            alt={photo.imageAlt}
+            fill
+            sizes="(max-width: 640px) 100vw, 40vw"
+            className="object-cover"
           />
-        ))}
-      </div>
-    </Section>
+        </div>
+      ))}
+    </section>
   );
 }

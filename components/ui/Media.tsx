@@ -15,22 +15,12 @@ type ToneSpec = {
   ink: "light" | "dark";
 };
 
+// Flat panels. Product cutouts sit on plain dark grey in layout A, the way
+// a rental company shows its gear; the earlier gradients read as decoration.
 const TONES: Record<MediaTone, ToneSpec> = {
-  // Plain gradients, no highlights. Earlier versions painted a bright sun
-  // spot into "ember" and a light bloom into the others; behind product
-  // cutouts it read as lens flare.
-  ember: {
-    background: "linear-gradient(160deg, #0b0a09 0%, #1e1a16 50%, #3a2117 100%)",
-    ink: "light",
-  },
-  night: {
-    background: "linear-gradient(150deg, #2a2420 0%, #1a1613 58%, #0b0a09 100%)",
-    ink: "light",
-  },
-  sand: {
-    background: "linear-gradient(150deg, #faf6ee 0%, #e8dcc6 56%, #d6c4a3 100%)",
-    ink: "dark",
-  },
+  ember: { background: "#1f1f1f", ink: "light" },
+  night: { background: "#1f1f1f", ink: "light" },
+  sand: { background: "#1f1f1f", ink: "light" },
 };
 
 /* Low-contrast bars, echoing the logo, so a placeholder still looks designed. */
@@ -61,12 +51,10 @@ function Motif() {
 const OVERLAYS = {
   none: null,
   soft: "linear-gradient(180deg, rgba(11,10,9,0.30) 0%, rgba(11,10,9,0.05) 40%, rgba(11,10,9,0.55) 100%)",
-  // Left-side scrim protects the copy while the right stays bright; the second
-  // layer darkens only the nav and meta strips.
-  strong: [
-    "linear-gradient(96deg, rgba(11,10,9,0.92) 0%, rgba(11,10,9,0.72) 32%, rgba(11,10,9,0.28) 64%, rgba(11,10,9,0.05) 100%)",
-    "linear-gradient(180deg, rgba(11,10,9,0.62) 0%, rgba(11,10,9,0) 22%, rgba(11,10,9,0) 68%, rgba(11,10,9,0.7) 100%)",
-  ].join(","),
+  // Dark at the bottom where the hero copy sits, lighter toward the top so
+  // the rig still shows.
+  strong:
+    "linear-gradient(0deg, rgba(0,0,0,0.92) 10%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.25) 100%)",
 } as const;
 
 export type MediaProps = {
@@ -115,7 +103,7 @@ export function Media({
   return (
     <div
       className={`relative isolate overflow-hidden ${className}`}
-      style={backdrop ? { backgroundImage: spec.background } : undefined}
+      style={backdrop ? { background: spec.background } : undefined}
     >
       {backdrop ? (
         <div
@@ -127,13 +115,6 @@ export function Media({
           {/* The equalizer bars only fill an empty slot now. Behind a
               product photo they looked like template decoration. */}
           {src ? null : <Motif />}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(125% 105% at 50% 45%, rgba(11,10,9,0) 44%, rgba(11,10,9,0.22) 100%)",
-            }}
-          />
         </div>
       ) : null}
 
@@ -170,7 +151,7 @@ export function Media({
               noteOnLight ? "bg-ink/45" : "bg-bone/70"
             }`}
           />
-          <span className="label-xs leading-relaxed">{shotNote}</span>
+          <span className="text-[0.8125rem] leading-relaxed">{shotNote}</span>
         </div>
       ) : null}
     </div>
