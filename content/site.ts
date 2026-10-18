@@ -450,6 +450,15 @@ export const inquiry = {
  * years, so it went.
  */
 export const seo = {
+  /**
+   * Codes from Google Search Console and Bing Webmaster Tools, for the
+   * "HTML tag" way of proving we own the site. Paste the content="..." part
+   * only. Left null, no tag is printed.
+   */
+  verification: {
+    google: null as string | null,
+    bing: null as string | null,
+  },
   title: "Sound System Rental in Phoenix, AZ | Arizona Sound System",
   description:
     "Sound system rental for events across Arizona. Line array, subwoofers, booth monitors and battery power, with an engineer on site, for up to 1,000 people.",
@@ -541,7 +550,9 @@ export const faq = {
 /* -------------------------------------------------------------------------- */
 
 export const footer = {
-  blurb: "Sound system rental for events in Phoenix and across Arizona.",
+  // One plain sentence about who we are, on every page. AI answers quote
+  // pages that name the business and say what it does in the same sentence.
+  blurb: `Arizona Sound System is a sound system rental company based in Phoenix, Arizona. We bring a line array, subwoofers, DJ booth monitors and our own battery power, with an engineer, to events of up to about ${crowd.max} people across the state.`,
   columns: [
     {
       title: "Services",

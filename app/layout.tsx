@@ -67,6 +67,12 @@ export const metadata: Metadata = {
   // Phone numbers are already links where they should be; stop iOS turning
   // every other run of digits into one.
   formatDetection: { telephone: false, email: false, address: false },
+  verification: {
+    ...(seo.verification.google ? { google: seo.verification.google } : {}),
+    ...(seo.verification.bing
+      ? { other: { "msvalidate.01": seo.verification.bing } }
+      : {}),
+  },
   other: {
     // Old-school local signals. Harmless, and a few directories still read
     // them. Coordinates are the city centre, not a street address.

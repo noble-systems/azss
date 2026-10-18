@@ -4,7 +4,7 @@ Done on 17 October 2026 for the copy and page rewrite. Two research passes, one 
 
 ## What the Phoenix competitors look like
 
-The sites that read as a real business show an address, an owner's first name, a Google review count, named venues or clients, and the year they started. Centric Events (centric.events) does this best: 600+ events, 147 Google reviews at 5.0, named clients like Carvana and MLB Spring Training. Xperience Entertainment (readytoxperience.com) names the Arizona Biltmore and The Phoenician and says it was founded in 2006. C West Entertainment (djcwest.com) names its owner and says "Since 2014".
+The sites that read as a real business show an address, an owner's first name, a Google review count, named venues or clients, and the year they started. Centric Events (centric.events) does this best: 600+ events, a 5.0 Google rating (147 reviews in one check, 159 on its own site on 17 October), named clients like Carvana and MLB Spring Training. Xperience Entertainment (readytoxperience.com) names the Arizona Biltmore and The Phoenician and says it was founded in 2006. C West Entertainment (djcwest.com) names its owner and says "Since 2014".
 
 Most of the copy is salesy ("elevate", "premier", "unforgettable"). Valley Video (valleyvideo.com/sound-system-rentals) is the plainest, and its H1 is just "Sound System and Speaker Rentals in Phoenix and the East Valley".
 

@@ -124,7 +124,11 @@ export function Media({
           alt={alt}
           fill
           sizes={sizes}
-          priority={priority}
+          // Next 16 dropped fetchpriority from `priority`, and Lighthouse
+          // flagged the hero for it, so the hint is set here by hand.
+          preload={priority}
+          fetchPriority={priority ? "high" : undefined}
+          loading={priority ? "eager" : "lazy"}
           className={`${fit === "contain" ? "object-contain" : "object-cover"} ${imageClassName}`}
         />
       ) : null}
